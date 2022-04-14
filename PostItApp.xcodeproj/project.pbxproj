@@ -11,6 +11,7 @@
 		6DE8B60B2808714200F053A4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8B60A2808714200F053A4 /* ContentView.swift */; };
 		6DE8B60D2808714400F053A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8B60C2808714400F053A4 /* Assets.xcassets */; };
 		6DE8B6102808714400F053A4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8B60F2808714400F053A4 /* Preview Assets.xcassets */; };
+		E78FCA8E2808AA78009A9309 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E78FCA8D2808AA78009A9309 /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,8 @@
 		6DE8B60A2808714200F053A4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6DE8B60C2808714400F053A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6DE8B60F2808714400F053A4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E78FCA8B2808AA75009A9309 /* PostItApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PostItApp.entitlements; sourceTree = "<group>"; };
+		E78FCA8D2808AA78009A9309 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E78FCA8E2808AA78009A9309 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,6 +41,7 @@
 			children = (
 				6DE8B6072808714200F053A4 /* PostItApp */,
 				6DE8B6062808714200F053A4 /* Products */,
+				E78FCA8C2808AA78009A9309 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -51,6 +56,7 @@
 		6DE8B6072808714200F053A4 /* PostItApp */ = {
 			isa = PBXGroup;
 			children = (
+				E78FCA8B2808AA75009A9309 /* PostItApp.entitlements */,
 				6DE8B6082808714200F053A4 /* PostItAppApp.swift */,
 				6DE8B60A2808714200F053A4 /* ContentView.swift */,
 				6DE8B60C2808714400F053A4 /* Assets.xcassets */,
@@ -65,6 +71,14 @@
 				6DE8B60F2808714400F053A4 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E78FCA8C2808AA78009A9309 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E78FCA8D2808AA78009A9309 /* CloudKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,6 +278,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PostItApp/PostItApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PostItApp/Preview Content\"";
@@ -294,6 +309,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PostItApp/PostItApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PostItApp/Preview Content\"";
