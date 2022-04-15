@@ -11,7 +11,7 @@ import SwiftUI
 struct PostItAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ImagePicker()
+            TabsView()
         }
     }
 }
