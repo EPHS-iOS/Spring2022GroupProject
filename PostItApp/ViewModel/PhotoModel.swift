@@ -17,18 +17,20 @@ class PhotoModel : ObservableObject {
     
     @Published var leaderboard = [Leaderboard]()
     @Published var username: String = ""
+    @Published var currentScore: Int = 0
     
     let privateDB = CKContainer.default().privateCloudDatabase
     let publicDB = CKContainer.default().publicCloudDatabase
     
     
     init() {
+        
         fetchRecordID()
         fetchPhotos()
     }
     
     
-    func saveItem(record: CKRecord) {
+    func saveItemPriv(record: CKRecord) {
         privateDB.save(record) { [weak self] returnedRecord, returnedError in
             print(returnedRecord)
             print(returnedError)
@@ -39,7 +41,19 @@ class PhotoModel : ObservableObject {
         }
     }
     
-    func checkAndAdd(image: UIImage?) {
+    func saveItemPub(record: CKRecord) {
+        publicDB.save(record) { [weak self] returnedRecord, returnedError in
+            print(returnedRecord)
+            print(returnedError)
+            DispatchQueue.main.async {
+                self?.fetchSingleScore(name: self!.username)
+                self?.fetchAllScores()
+            }
+
+        }
+    }
+    
+    func checkAndAdd(image: UIImage?, name: username) {
         if /* matches picture */ {
             addPhoto(image: image)
             addPoints()
@@ -60,7 +74,7 @@ class PhotoModel : ObservableObject {
             try data.write(to: url)
             let asset = CKAsset(fileURL: url)
             newPhoto["Photo"] = asset
-            saveItem(record: newPhoto)
+            saveItemPriv(record: newPhoto)
         } catch let error {
             print(error)
         }
@@ -119,6 +133,37 @@ class PhotoModel : ObservableObject {
         }
     }
     
+    func fetchSingleScore(name: String){
+        let predicate = NSPredicate(format: "name = %@", argumentArray: [name])
+        let query = CKQuery(recordType: "Scores", predicate: predicate)
+        let queryOperation = CKQueryOperation(query: query)
+        
+        var returnedScore = 0
+        
+        queryOperation.recordMatchedBlock = { (returnedRecordID, returnedResult) in
+            switch returnedResult {
+            case .success(let record):
+                guard
+                    let score = record["Score"] as? Int
+                else { return }
+                returnedScore = score
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        queryOperation.queryResultBlock = { [weak self] returnedResult in
+            print("Returned Result: \(returnedResult)")
+            DispatchQueue.main.async {
+                self?.currentScore = returnedScore
+            }
+        }
+        addOperationPub(operation: queryOperation)
+    }
+    
+    
+    
     func fetchAllScores() {
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: "Scores", predicate: predicate)
@@ -154,16 +199,18 @@ class PhotoModel : ObservableObject {
         
     }
     
-    func addPoints(points: Leaderboard) {
-        if let score = leaderboard.first(where: {$0.name == points.name}) {
-            let index = leaderboard.firstIndex(of: score)
-            let record = points.record
-            record["Score"] = points.score
-            record["Name"] = points.name
+    func addPoints(name: String) {
+        fetchSingleScore(name: name)
+        if currentScore == 0 {
+            let newScore = CKRecord(recordType: "Scores")
+            newScore["Score"] = 500
+            newScore["Name"] = name
+            saveItemPriv(record: newScore)
         } else {
+            guard let score = leaderboard.first(where: {$0.name == name}) else { return }
+            let index = leaderboard.firstIndex(of: score)
             
         }
-            
         
         
         

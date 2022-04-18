@@ -11,6 +11,7 @@ struct LeaderboardView: View {
     
     @StateObject var model = PhotoModel()
     
+    
     var body: some View {
         NavigationView {
             List(model.leaderboard) { place in
