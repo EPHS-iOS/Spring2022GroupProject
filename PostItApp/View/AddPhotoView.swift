@@ -48,9 +48,10 @@ struct AddPhotoView: View {
             .toolbar {
                 ToolbarItemGroup {
                     Button {
-                        photoModel.addItem(image: aPM.imageSelected)
+                        
+                        photoModel.addPhoto(image: aPM.imageSelected)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                            self.photoModel.fetchItems()
+                            self.photoModel.fetchPhotos()
                         }
                         presentationMode.wrappedValue.dismiss()
                     } label: {

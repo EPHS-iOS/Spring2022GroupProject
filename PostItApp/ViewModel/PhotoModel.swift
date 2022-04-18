@@ -15,11 +15,16 @@ class PhotoModel : ObservableObject {
     @Published var photos = [Photo]()
     @Published var showingAddPhoto = false
     
+    @Published var leaderboard = [Leaderboard]()
+    @Published var username: String = ""
+    
     let privateDB = CKContainer.default().privateCloudDatabase
+    let publicDB = CKContainer.default().publicCloudDatabase
     
     
     init() {
-        fetchItems()
+        fetchRecordID()
+        fetchPhotos()
     }
     
     
@@ -28,14 +33,22 @@ class PhotoModel : ObservableObject {
             print(returnedRecord)
             print(returnedError)
             DispatchQueue.main.async {
-                self?.fetchItems()
+                self?.fetchPhotos()
             }
             
         }
     }
     
+    func checkAndAdd(image: UIImage?) {
+        if /* matches picture */ {
+            addPhoto(image: image)
+            addPoints()
+        } else {
+            // feedback saying "doesnt match"
+        }
+    }
     
-    func addItem(image: UIImage?) {
+    func addPhoto(image: UIImage?) {
         let newPhoto = CKRecord(recordType: "Photos")
         
         guard
@@ -54,7 +67,7 @@ class PhotoModel : ObservableObject {
     }
     
     
-    func fetchItems() {
+    func fetchPhotos() {
         
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: "Photos", predicate: predicate)
@@ -83,13 +96,16 @@ class PhotoModel : ObservableObject {
             }
             
         }
-        addOperation(operation: queryOperation)
+        addOperationPriv(operation: queryOperation)
     }
     
-    func addOperation(operation: CKDatabaseOperation) {
+    func addOperationPriv(operation: CKDatabaseOperation) {
         privateDB.add(operation)
     }
     
+    func addOperationPub(operation: CKDatabaseOperation) {
+        publicDB.add(operation)
+    }
     
     func deleteItem(input: Photo) {
         guard let photo = photos.first(where: {$0.id == input.id}) else { return }
@@ -102,5 +118,76 @@ class PhotoModel : ObservableObject {
             }
         }
     }
+    
+    func fetchAllScores() {
+        let predicate = NSPredicate(value: true)
+        let query = CKQuery(recordType: "Scores", predicate: predicate)
+        let queryOperation = CKQueryOperation(query: query)
+        
+        var returnedScores = [Leaderboard]()
+        
+        queryOperation.recordMatchedBlock = { (returnedRecordID, returnedResult) in
+            switch returnedResult {
+            case .success(let record):
+                guard
+                    let score = record["Score"] as? Int,
+                    let name = record["Name"] as? String
+                else { return }
+                returnedScores.append(Leaderboard(score: score, name: name, record: record))
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        queryOperation.queryResultBlock = { [weak self] returnedResult in
+            print("Returned Result: \(returnedResult)")
+            DispatchQueue.main.async {
+                self?.leaderboard = returnedScores
+            }
+            
+        }
+        addOperationPub(operation: queryOperation)
+    }
+    
+    func fetchScore() {
+        
+    }
+    
+    func addPoints(points: Leaderboard) {
+        if let score = leaderboard.first(where: {$0.name == points.name}) {
+            let index = leaderboard.firstIndex(of: score)
+            let record = points.record
+            record["Score"] = points.score
+            record["Name"] = points.name
+        } else {
+            
+        }
+            
+        
+        
+        
+        
+    }
+    
+    func fetchUserData(id: CKRecord.ID) {
+        CKContainer.default().discoverUserIdentity(withUserRecordID: id) { [weak self] returnedID, returnedError in
+            DispatchQueue.main.async {
+                if let name = returnedID?.nameComponents?.givenName {
+                    self?.username = name
+                }
+            }
+        }
+    }
+    
+    func fetchRecordID() {
+        CKContainer.default().fetchUserRecordID { [weak self] returnedID, returnedError in
+            if let id = returnedID {
+                self?.fetchUserData(id: id)
+            }
+        }
+    }
+    
+    
     
 }

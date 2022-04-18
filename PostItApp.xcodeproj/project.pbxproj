@@ -20,6 +20,7 @@
 		E7A230F128093ACD00CE0656 /* IndividualPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A230F028093ACD00CE0656 /* IndividualPhotoView.swift */; };
 		E7A230F32809433B00CE0656 /* TabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A230F22809433A00CE0656 /* TabsView.swift */; };
 		E7A230F52809438800CE0656 /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A230F42809438800CE0656 /* LeaderboardView.swift */; };
+		E7A230F72809F5B200CE0656 /* Leaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A230F62809F5B200CE0656 /* Leaderboard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		E7A230F028093ACD00CE0656 /* IndividualPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndividualPhotoView.swift; sourceTree = "<group>"; };
 		E7A230F22809433A00CE0656 /* TabsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsView.swift; sourceTree = "<group>"; };
 		E7A230F42809438800CE0656 /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
+		E7A230F62809F5B200CE0656 /* Leaderboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leaderboard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				E7A230EB2809356300CE0656 /* Photo.swift */,
+				E7A230F62809F5B200CE0656 /* Leaderboard.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 			files = (
 				E7A230F52809438800CE0656 /* LeaderboardView.swift in Sources */,
 				E7A230EC2809356300CE0656 /* Photo.swift in Sources */,
+				E7A230F72809F5B200CE0656 /* Leaderboard.swift in Sources */,
 				E78FCA902808ADA4009A9309 /* ImagePicker.swift in Sources */,
 				E7A230F128093ACD00CE0656 /* IndividualPhotoView.swift in Sources */,
 				6DE8B60B2808714200F053A4 /* AddPhotoView.swift in Sources */,

@@ -1,19 +1,18 @@
 //
-//  Photo.swift
+//  Leaderboard.swift
 //  PostItApp
 //
 //  Created by 90305906 on 4/15/22.
 //
 
 import Foundation
-import UIKit
 import CloudKit
 
-struct Photo : Identifiable, Hashable {
+struct Leaderboard : Identifiable, Equatable {
     
     var id = UUID()
-    var image : URL?
+    var score : Int
+    var name : String
     var record : CKRecord
-//    var lat : Double
-//    var long : Double
+    
 }
