@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct TabsView: View {
+    
+    @StateObject var model = PhotoModel()
+    
     var body: some View {
         TabView {
             

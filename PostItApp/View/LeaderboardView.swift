@@ -11,15 +11,21 @@ struct LeaderboardView: View {
     
     @StateObject var model = PhotoModel()
     
-    
     var body: some View {
         NavigationView {
-            List(model.leaderboard) { place in
+            List(model.leaderboard.indices, id: \.self) { i in
                 HStack {
-                    Text(place.name)
-                    Text("\(place.score)")
+                    Text("\(i+1)")
+                    Spacer()
+                    Text(model.leaderboard[i].name)
+                    Text("\(model.leaderboard[i].score)")
+                }
+            }.refreshable {
+                DispatchQueue.main.async {
+                    model.fetchAllScores()
                 }
             }
+            .navigationTitle("Leaderboard")
         }
     }
 }

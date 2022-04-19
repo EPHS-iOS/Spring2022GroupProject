@@ -14,6 +14,7 @@ struct AddPhotoView: View {
     @EnvironmentObject var photoModel: PhotoModel
     @Environment(\.presentationMode) var presentationMode
     @StateObject var aPM = AddPhotoModel()
+    @StateObject var model = PhotoModel()
     
     var body: some View {
         
@@ -48,10 +49,11 @@ struct AddPhotoView: View {
             .toolbar {
                 ToolbarItemGroup {
                     Button {
-                        
-                        photoModel.addPhoto(image: aPM.imageSelected)
+                        photoModel.checkAndAddDemo(image: aPM.imageSelected, name: model.username)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                             self.photoModel.fetchPhotos()
+                            self.photoModel.fetchAllScores()
+                            self.photoModel.fetchSingleScore()
                         }
                         presentationMode.wrappedValue.dismiss()
                     } label: {
@@ -59,7 +61,7 @@ struct AddPhotoView: View {
                     }.disabled(!aPM.changeProfileImage)
                 }
             }
-            .navigationTitle("Add Item")
+            .navigationTitle("Add Photo")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
