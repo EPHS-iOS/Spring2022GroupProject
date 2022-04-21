@@ -26,19 +26,23 @@ class PhotoModel : ObservableObject {
     var ranking = [(contestantIndex: Int, featureprintDistance: Float)]()
     var contestantImageURLs = [URL]()
     
-    let privateDB = CKContainer.default().privateCloudDatabase
-    let publicDB = CKContainer.default().publicCloudDatabase
+//    let privateDB = CKContainer.default().privateCloudDatabase
+//    let publicDB = CKContainer.default().publicCloudDatabase
 
     let privateDB = CKContainer.init(identifier: "iCloud.ephs2022.postit").privateCloudDatabase
     let publicDB = CKContainer.init(identifier: "iCloud.ephs2022.postit").publicCloudDatabase
     
     
     init() {
-        fetchRecordID()
         requestPermission()
         fetchPhotos()
         fetchAllScores()
         fetchSingleScore()
+        if permissionStatus {
+            fetchRecordID()
+        } else {
+            requestPermission()
+        }
     }
     
     

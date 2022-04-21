@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5021D7002811B590004B1379 /* ship.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5021D6FD2811B58F004B1379 /* ship.jpg */; };
-		5021D7012811B590004B1379 /* flower.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5021D6FE2811B58F004B1379 /* flower.jpg */; };
-		5021D7022811B590004B1379 /* rainbow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5021D6FF2811B590004B1379 /* rainbow.jpg */; };
 		6DE8B6092808714200F053A4 /* PostItAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8B6082808714200F053A4 /* PostItAppApp.swift */; };
 		6DE8B60B2808714200F053A4 /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8B60A2808714200F053A4 /* AddPhotoView.swift */; };
 		6DE8B60D2808714400F053A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8B60C2808714400F053A4 /* Assets.xcassets */; };
@@ -27,9 +24,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5021D6FD2811B58F004B1379 /* ship.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ship.jpg; path = ../../../Objects/Ship/ship.jpg; sourceTree = "<group>"; };
-		5021D6FE2811B58F004B1379 /* flower.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = flower.jpg; path = ../../../Objects/Flower/flower.jpg; sourceTree = "<group>"; };
-		5021D6FF2811B590004B1379 /* rainbow.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = rainbow.jpg; path = ../../../Objects/Rainbow/rainbow.jpg; sourceTree = "<group>"; };
 		6DE8B6052808714200F053A4 /* PostItApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostItApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DE8B6082808714200F053A4 /* PostItAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostItAppApp.swift; sourceTree = "<group>"; };
 		6DE8B60A2808714200F053A4 /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
@@ -87,9 +81,6 @@
 				E7A230EA2809355600CE0656 /* Model */,
 				E78FCA8F2808ADA4009A9309 /* ImagePicker.swift */,
 				6DE8B60C2808714400F053A4 /* Assets.xcassets */,
-				5021D6FE2811B58F004B1379 /* flower.jpg */,
-				5021D6FF2811B590004B1379 /* rainbow.jpg */,
-				5021D6FD2811B58F004B1379 /* ship.jpg */,
 				6DE8B60E2808714400F053A4 /* Preview Content */,
 			);
 			path = PostItApp;
@@ -199,10 +190,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5021D7012811B590004B1379 /* flower.jpg in Resources */,
 				6DE8B6102808714400F053A4 /* Preview Assets.xcassets in Resources */,
-				5021D7022811B590004B1379 /* rainbow.jpg in Resources */,
-				5021D7002811B590004B1379 /* ship.jpg in Resources */,
 				6DE8B60D2808714400F053A4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

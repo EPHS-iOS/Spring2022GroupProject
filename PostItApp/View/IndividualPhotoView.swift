@@ -21,22 +21,5 @@ struct IndividualPhotoView: View {
                     .frame(height: 300)
             }
         }
-//        .toolbar {
-//            ToolbarItemGroup {
-//                HStack {
-//                    Button {
-//                        photoModel.deleteItem(input: photo)
-//                    } label: {
-//                        Label {
-//                            Text("Delete")
-//                        } icon: {
-//                            Image(systemName: "trash")
-//                        }
-//
-//                    }
-//
-//                }
-//            }
-//        }
     }
 }
