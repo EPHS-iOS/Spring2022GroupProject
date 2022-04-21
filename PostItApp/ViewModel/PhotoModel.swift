@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import CloudKit
 import SwiftUI
+import Vision
 
 class PhotoModel : ObservableObject {
     
@@ -20,6 +21,9 @@ class PhotoModel : ObservableObject {
     @Published var currentScore: Int = 0
     @Published var permissionStatus: Bool = false
     var personalRecord: CKRecord? = nil
+    
+    var ranking = [(contestantIndex: Int, featureprintDistance: Float)]()
+    var contestantImageURLs = [URL]()
     
     let privateDB = CKContainer.default().privateCloudDatabase
     let publicDB = CKContainer.default().publicCloudDatabase
@@ -57,14 +61,79 @@ class PhotoModel : ObservableObject {
         }
     }
     
-//    func checkAndAdd(image: UIImage?, name: username) {
-//        if /* matches picture */ {
-//            addPhoto(image: image)
-//            addPoints(name)
-//        } else {
-//            // feedback saying "doesnt match"
-//        }
-//    }
+    func checkAndAdd(image: UIImage?, name: String) {
+        
+        let filePath = Bundle.main.path(forResource: "flower", ofType: "jpg")!
+        let tempURL = URL(fileURLWithPath: filePath)
+        let filePath2 = Bundle.main.path(forResource: "rainbow", ofType: "jpg")!
+        let tempURL2 = URL(fileURLWithPath: filePath2)
+        let filePath3 = Bundle.main.path(forResource: "ship", ofType: "jpg")!
+        let tempURL3 = URL(fileURLWithPath: filePath3)
+        contestantImageURLs.append(tempURL)
+        contestantImageURLs.append(tempURL2)
+        contestantImageURLs.append(tempURL3)
+        
+        guard let imageURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("TempImage.png") else {
+            return
+        }
+
+        let pngData = image!.pngData();
+        do {
+            try pngData?.write(to: imageURL);
+        } catch { }
+        
+        if processImages(contestantImageURLs: contestantImageURLs, originalImageURL: imageURL) {
+            addPhoto(image: image)
+            addPoints(name: name)
+        } else {
+            print("fail")
+        }
+    }
+    
+    func processImages(contestantImageURLs: [URL], originalImageURL: URL) -> Bool {
+        let originalURL = originalImageURL
+        // Make sure we can generate featureprint for original drawing.
+        let originalFPO = featureprintObservationForImage(atURL: originalURL)!
+        // Generate featureprints for copies and compute distances from original featureprint.
+        for idx in contestantImageURLs.indices {
+            let contestantImageURL = contestantImageURLs[idx]
+            if let contestantFPO = featureprintObservationForImage(atURL: contestantImageURL) {
+                do {
+                    var distance = Float(0)
+                    try contestantFPO.computeDistance(&distance, to: originalFPO)
+                    ranking.append((contestantIndex: idx, featureprintDistance: distance))
+                } catch {
+                    print("Error computing distance between featureprints.")
+                }
+            }
+        }
+        // Sort results based on distance.
+        ranking.sort { (result1, result2) -> Bool in
+            return result1.featureprintDistance < result2.featureprintDistance
+        }
+        //(contestantIndex: Int, featureprintDistance: Float)
+        let ranking1 = ranking[0]
+        ranking.removeAll()
+        ranking.append(ranking1)
+        
+            if self.ranking[0].featureprintDistance < 16 {
+                return true
+            } else {
+                return false
+            }
+    }
+    
+    func featureprintObservationForImage(atURL url: URL) -> VNFeaturePrintObservation? {
+        let requestHandler = VNImageRequestHandler(url: url, options: [:])
+        let request = VNGenerateImageFeaturePrintRequest()
+        do {
+            try requestHandler.perform([request])
+            return request.results?.first as? VNFeaturePrintObservation
+        } catch {
+            print("Vision error: \(error)")
+            return nil
+        }
+    }
     
     func checkAndAddDemo(image: UIImage?, name: String) {
         addPhoto(image: image)

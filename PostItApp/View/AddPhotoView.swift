@@ -31,13 +31,11 @@ struct AddPhotoView: View {
                     Image(uiImage: aPM.imageSelected)
                         .resizable()
                         .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
-                        .frame(width: 300, height: 300)
                         .background(Color.gray)
                 } else {
                     HStack {
                         Spacer()
                         Image(systemName: "photo")
-                            .frame(width: 300, height: 300)
                             .foregroundColor(.white)
                             .background(Color.gray)
                         Spacer()
@@ -49,7 +47,7 @@ struct AddPhotoView: View {
             .toolbar {
                 ToolbarItemGroup {
                     Button {
-                        photoModel.checkAndAddDemo(image: aPM.imageSelected, name: model.username)
+                        photoModel.checkAndAdd(image: aPM.imageSelected, name: model.username)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                             self.photoModel.fetchPhotos()
                             self.photoModel.fetchAllScores()
