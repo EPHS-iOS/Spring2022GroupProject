@@ -21,8 +21,8 @@ class PhotoModel : ObservableObject {
     @Published var permissionStatus: Bool = false
     var personalRecord: CKRecord? = nil
     
-    let privateDB = CKContainer.default().privateCloudDatabase
-    let publicDB = CKContainer.default().publicCloudDatabase
+    let privateDB = CKContainer.init(identifier: "iCloud.ephs2022.postit").privateCloudDatabase
+    let publicDB = CKContainer.init(identifier: "iCloud.ephs2022.postit").publicCloudDatabase
     
     
     init() {
