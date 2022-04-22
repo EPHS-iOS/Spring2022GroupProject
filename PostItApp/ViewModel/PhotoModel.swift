@@ -20,6 +20,7 @@ class PhotoModel : ObservableObject {
     @Published var username: String = ""
     @Published var currentScore: Int = 0
     @Published var permissionStatus: Bool = false
+    @Published var nameFeedback: String = ""
     var personalRecord: CKRecord? = nil
     
 
@@ -34,11 +35,11 @@ class PhotoModel : ObservableObject {
     
     
     init() {
-        requestPermission()
+        //requestPermission()
         fetchPhotos()
         fetchAllScores()
         fetchSingleScore()
-        fetchRecordID()
+        //fetchRecordID()
     }
     
     
@@ -344,6 +345,38 @@ class PhotoModel : ObservableObject {
         }
     }
     
+    func changeUsername(newName: String) {
+        fetchAllScores()
+        if self.currentScore == 0 {
+            if isNameUnique(name: newName) {
+                username = newName
+            } else {
+                nameFeedback = "Name already taken"
+            }
+        } else {
+            if isNameUnique(name: newName) {
+                updateName(newName: newName)
+            } else {
+                nameFeedback = "Name already taken"
+            }
+        }
+    }
     
+    func isNameUnique(name: String) -> Bool {
+        for score in leaderboard {
+            if score.name == name {
+                return false
+            }
+        }
+        return true
+    }
+    
+    func updateName(newName: String) {
+        guard let score = leaderboard.first(where: {$0.name == self.username}) else { return }
+        let index = leaderboard.firstIndex(of: score)
+        let record = leaderboard[index!].record
+        record["Name"]! = newName
+        saveItemPub(record: record)
+    }
     
 }

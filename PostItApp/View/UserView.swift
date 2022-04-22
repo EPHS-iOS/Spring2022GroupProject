@@ -12,13 +12,14 @@ struct UserView: View {
     @StateObject var model = PhotoModel()
     
     var body: some View {
-        
-        TextField("Enter Name", text: $model.username)
-        Button {
-        
-        } label: {
-            Label("Save", systemImage: "paperplane")
-                .labelStyle(IconOnlyLabelStyle())
+        HStack {
+            TextField("Enter Name", text: $model.username)
+            Button {
+                model.changeUsername(newName: model.username)
+            } label: {
+                Label("Save", systemImage: "square.and.arrow.down")
+                    .labelStyle(IconOnlyLabelStyle())
+            }
         }
     }
 }
