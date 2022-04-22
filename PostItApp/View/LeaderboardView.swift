@@ -23,6 +23,7 @@ struct LeaderboardView: View {
             }.refreshable {
                 DispatchQueue.main.async {
                     model.fetchAllScores()
+                    model.fetchPhotos()
                 }
             }
             .navigationTitle("Leaderboard")

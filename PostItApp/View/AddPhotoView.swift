@@ -53,6 +53,9 @@ struct AddPhotoView: View {
                             self.photoModel.fetchAllScores()
                             self.photoModel.fetchSingleScore()
                         }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+                            self.photoModel.fetchPhotos()
+                        }
                         presentationMode.wrappedValue.dismiss()
                     } label: {
                         Text("Save")

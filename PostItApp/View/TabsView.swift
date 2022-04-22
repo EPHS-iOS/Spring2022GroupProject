@@ -25,6 +25,12 @@ struct TabsView: View {
                     Image(systemName: "flag.and.flag.filled.crossed")
                     Text("Leaderboard")
                 }
+            
+            UserView()
+                .tabItem() {
+                    Image(systemName: "person")
+                    Text("Users")
+                }
         }
     }
 }

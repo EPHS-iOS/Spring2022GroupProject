@@ -12,6 +12,7 @@ struct AllPhotosView: View {
     @StateObject var model = PhotoModel()
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
+    
     var body: some View {
         
         NavigationView {
@@ -59,9 +60,11 @@ struct AllPhotosView: View {
                         } icon: {
                             Image(systemName: "plus")
                         }
-                    }.popover(isPresented: $model.showingAddPhoto) {
-                        AddPhotoView()
-                    }
+                    }.disabled(model.username == "")
+                        .popover(isPresented: $model.showingAddPhoto) {
+                            AddPhotoView()
+                        }
+                    
                     
                 }
             }
