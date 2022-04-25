@@ -346,6 +346,7 @@ class PhotoModel : ObservableObject {
     }
     
     func changeUsername(newName: String) {
+        fetchSingleScore()
         fetchAllScores()
         if self.currentScore == 0 {
             if isNameUnique(name: newName) {
@@ -363,8 +364,8 @@ class PhotoModel : ObservableObject {
     }
     
     func isNameUnique(name: String) -> Bool {
-        for score in leaderboard {
-            if score.name == name {
+        for i in 0...leaderboard.count-1 {
+            if leaderboard[i].name == name {
                 return false
             }
         }
