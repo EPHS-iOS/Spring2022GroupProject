@@ -47,9 +47,10 @@ struct AddPhotoView: View {
             .toolbar {
                 ToolbarItemGroup {
                     Button {
-                        photoModel.checkAndAddDemo(image: aPM.imageSelected, name: model.username)
+                        photoModel.checkAndAddDemo(image: aPM.imageSelected, name: PhotoModel.userName)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                             self.photoModel.fetchPhotos()
+                            
                             self.photoModel.fetchAllScores()
                             self.photoModel.fetchSingleScore()
                         }

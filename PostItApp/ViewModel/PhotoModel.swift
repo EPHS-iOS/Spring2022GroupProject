@@ -22,6 +22,7 @@ class PhotoModel : ObservableObject {
     @Published var permissionStatus: Bool = false
     @Published var nameFeedback: String = ""
     var personalRecord: CKRecord? = nil
+    static var userName = ""
     
 
     var ranking = [(contestantIndex: Int, featureprintDistance: Float)]()
@@ -217,7 +218,7 @@ class PhotoModel : ObservableObject {
         }
     }
     
-    func fetchSingleScore(){
+    func fetchSingleScore() {
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: "Score", predicate: predicate)
         let queryOperation = CKQueryOperation(query: query)
@@ -348,24 +349,32 @@ class PhotoModel : ObservableObject {
     func changeUsername(newName: String) {
         fetchSingleScore()
         fetchAllScores()
-        if self.currentScore == 0 {
-            if isNameUnique(name: newName) {
-                username = newName
+        if PhotoModel.userName == "" {
+            if isNameUnique(input: newName) {
+                PhotoModel.userName = newName
+                fetchAllScores()
+                print(username)
             } else {
                 nameFeedback = "Name already taken"
+                print(nameFeedback)
             }
         } else {
-            if isNameUnique(name: newName) {
+            if isNameUnique(input: newName) {
+                PhotoModel.userName = newName
                 updateName(newName: newName)
+                fetchAllScores()
+                print(username)
             } else {
                 nameFeedback = "Name already taken"
+                print(nameFeedback + "2")
             }
         }
     }
     
-    func isNameUnique(name: String) -> Bool {
-        for i in 0...leaderboard.count-1 {
-            if leaderboard[i].name == name {
+    
+    func isNameUnique(input: String) -> Bool {
+        for score in leaderboard {
+            if score.name == input {
                 return false
             }
         }
@@ -373,7 +382,7 @@ class PhotoModel : ObservableObject {
     }
     
     func updateName(newName: String) {
-        guard let score = leaderboard.first(where: {$0.name == self.username}) else { return }
+        guard let score = leaderboard.first(where: {$0.name == PhotoModel.userName}) else { return }
         let index = leaderboard.firstIndex(of: score)
         let record = leaderboard[index!].record
         record["Name"]! = newName

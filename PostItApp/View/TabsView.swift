@@ -14,19 +14,19 @@ struct TabsView: View {
     var body: some View {
         TabView {
             
-            AllPhotosView()
+            AllPhotosView().environmentObject(model)
                 .tabItem() {
                     Image(systemName: "photo.on.rectangle")
                     Text("Photos")
                 }
             
-            LeaderboardView()
+            LeaderboardView().environmentObject(model)
                 .tabItem() {
                     Image(systemName: "flag.and.flag.filled.crossed")
                     Text("Leaderboard")
                 }
             
-            UserView()
+            UserView().environmentObject(model)
                 .tabItem() {
                     Image(systemName: "person")
                     Text("Users")

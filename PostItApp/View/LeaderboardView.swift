@@ -10,6 +10,7 @@ import SwiftUI
 struct LeaderboardView: View {
     
     @StateObject var model = PhotoModel()
+    @EnvironmentObject var scoreModel: PhotoModel
     
     var body: some View {
         NavigationView {
