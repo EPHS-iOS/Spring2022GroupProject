@@ -18,11 +18,12 @@ class PhotoModel : ObservableObject {
     
     @Published var leaderboard = [Leaderboard]()
     @Published var username: String = ""
-    @Published var currentScore: Int = 0
+    //@Published var currentScore: Int = 0
     @Published var permissionStatus: Bool = false
     @Published var nameFeedback: String = ""
     var personalRecord: CKRecord? = nil
     static var userName = ""
+    static var currentScore: Int = 0
     
 
     var ranking = [(contestantIndex: Int, featureprintDistance: Float)]()
@@ -240,7 +241,7 @@ class PhotoModel : ObservableObject {
         queryOperation.queryResultBlock = { [weak self] returnedResult in
             print("Returned Result: \(returnedResult)")
             DispatchQueue.main.async {
-                self?.currentScore = returnedScore
+                PhotoModel.currentScore = returnedScore
                 self?.personalRecord = returnedRecord
             }
         }
@@ -284,7 +285,7 @@ class PhotoModel : ObservableObject {
     
     func addPoints(name: String) {
         fetchSingleScore()
-        if currentScore == 0 {
+        if PhotoModel.currentScore == 0 {
             let newScore = CKRecord(recordType: "Scores")
             newScore["Score"] = 100
             newScore["Name"] = name
@@ -308,7 +309,7 @@ class PhotoModel : ObservableObject {
     
     func addPointsPriv() {
         let newScore = CKRecord(recordType: "Score")
-        if currentScore == 0 {
+        if PhotoModel.currentScore == 0 {
             newScore["Score"] = 100
             saveItemPriv(record: newScore)
         } else {
@@ -360,8 +361,8 @@ class PhotoModel : ObservableObject {
             }
         } else {
             if isNameUnique(input: newName) {
-                PhotoModel.userName = newName
                 updateName(newName: newName)
+                PhotoModel.userName = newName
                 fetchAllScores()
                 print(username)
             } else {
