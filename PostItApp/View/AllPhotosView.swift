@@ -47,7 +47,7 @@ struct AllPhotosView: View {
                         }
                     }
                     
-                }.navigationTitle("\(photoModel.username)   \(model.currentScore)")
+                }.navigationTitle("\(photoModel.username)   \(PhotoModel.currentScore)")
                     .navigationBarTitleDisplayMode(.automatic)
                     .font(Font.system(size:46, weight: .bold))
                 
