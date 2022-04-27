@@ -18,12 +18,9 @@ class PhotoModel : ObservableObject {
     
     @Published var leaderboard = [Leaderboard]()
     @Published var username: String = ""
-    //@Published var currentScore: Int = 0
+    @Published var currentScore: Int = 0
     @Published var permissionStatus: Bool = false
-    @Published var nameFeedback: String = ""
     var personalRecord: CKRecord? = nil
-    static var userName = ""
-    static var currentScore: Int = 0
     
 
     var ranking = [(contestantIndex: Int, featureprintDistance: Float)]()
@@ -37,11 +34,11 @@ class PhotoModel : ObservableObject {
     
     
     init() {
-        //requestPermission()
+        requestPermission()
         fetchPhotos()
         fetchAllScores()
         fetchSingleScore()
-        //fetchRecordID()
+        fetchRecordID()
     }
     
     
@@ -219,7 +216,7 @@ class PhotoModel : ObservableObject {
         }
     }
     
-    func fetchSingleScore() {
+    func fetchSingleScore(){
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: "Score", predicate: predicate)
         let queryOperation = CKQueryOperation(query: query)
@@ -241,7 +238,7 @@ class PhotoModel : ObservableObject {
         queryOperation.queryResultBlock = { [weak self] returnedResult in
             print("Returned Result: \(returnedResult)")
             DispatchQueue.main.async {
-                PhotoModel.currentScore = returnedScore
+                self?.currentScore = returnedScore
                 self?.personalRecord = returnedRecord
             }
         }
@@ -285,7 +282,7 @@ class PhotoModel : ObservableObject {
     
     func addPoints(name: String) {
         fetchSingleScore()
-        if PhotoModel.currentScore == 0 {
+        if currentScore == 0 {
             let newScore = CKRecord(recordType: "Scores")
             newScore["Score"] = 100
             newScore["Name"] = name
@@ -309,7 +306,7 @@ class PhotoModel : ObservableObject {
     
     func addPointsPriv() {
         let newScore = CKRecord(recordType: "Score")
-        if PhotoModel.currentScore == 0 {
+        if currentScore == 0 {
             newScore["Score"] = 100
             saveItemPriv(record: newScore)
         } else {
@@ -347,47 +344,6 @@ class PhotoModel : ObservableObject {
         }
     }
     
-    func changeUsername(newName: String) {
-        fetchSingleScore()
-        fetchAllScores()
-        if PhotoModel.userName == "" {
-            if isNameUnique(input: newName) {
-                PhotoModel.userName = newName
-                fetchAllScores()
-                print(username)
-            } else {
-                nameFeedback = "Name already taken"
-                print(nameFeedback)
-            }
-        } else {
-            if isNameUnique(input: newName) {
-                updateName(newName: newName)
-                PhotoModel.userName = newName
-                fetchAllScores()
-                print(username)
-            } else {
-                nameFeedback = "Name already taken"
-                print(nameFeedback + "2")
-            }
-        }
-    }
     
-    
-    func isNameUnique(input: String) -> Bool {
-        for score in leaderboard {
-            if score.name == input {
-                return false
-            }
-        }
-        return true
-    }
-    
-    func updateName(newName: String) {
-        guard let score = leaderboard.first(where: {$0.name == PhotoModel.userName}) else { return }
-        let index = leaderboard.firstIndex(of: score)
-        let record = leaderboard[index!].record
-        record["Name"]! = newName
-        saveItemPub(record: record)
-    }
     
 }

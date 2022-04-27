@@ -9,7 +9,6 @@ import SwiftUI
 
 struct AllPhotosView: View {
     
-    @EnvironmentObject var photoModel: PhotoModel
     @StateObject var model = PhotoModel()
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
@@ -47,7 +46,7 @@ struct AllPhotosView: View {
                         }
                     }
                     
-                }.navigationTitle("\(photoModel.username)   \(PhotoModel.currentScore)")
+                }.navigationTitle("\(model.username)   \(model.currentScore)")
                     .navigationBarTitleDisplayMode(.automatic)
                     .font(Font.system(size:46, weight: .bold))
                 
@@ -61,7 +60,7 @@ struct AllPhotosView: View {
                         } icon: {
                             Image(systemName: "plus")
                         }
-                    }.disabled(photoModel.username == "")
+                    }.disabled(model.username == "")
                         .popover(isPresented: $model.showingAddPhoto) {
                             AddPhotoView()
                         }
