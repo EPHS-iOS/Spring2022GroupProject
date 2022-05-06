@@ -26,11 +26,12 @@ class PhotoModel : ObservableObject {
     var ranking = [(contestantIndex: Int, featureprintDistance: Float)]()
     var contestantImageURLs = [URL]()
     
-    let privateDB = CKContainer.default().privateCloudDatabase
-    let publicDB = CKContainer.default().publicCloudDatabase
+//    let privateDB = CKContainer.default().privateCloudDatabase
+//    let publicDB = CKContainer.default().publicCloudDatabase
 
-//    let privateDB = CKContainer.init(identifier: "iCloud.ephs2022.postit").privateCloudDatabase
-//    let publicDB = CKContainer.init(identifier: "iCloud.ephs2022.postit").publicCloudDatabase
+    //Saved to wrong database; default
+    let privateDB = CKContainer.init(identifier: "iCloud.ephs2022.postit").privateCloudDatabase
+    let publicDB = CKContainer.init(identifier: "iCloud.ephs2022.postit").publicCloudDatabase
     
     
     init() {
@@ -44,7 +45,7 @@ class PhotoModel : ObservableObject {
     
     func saveItemPriv(record: CKRecord) {
         privateDB.save(record) { [weak self] returnedRecord, returnedError in
-            print(returnedRecord)
+            print(returnedRecord as Any)
             print(returnedError)
             DispatchQueue.main.async {
                 self?.fetchPhotos()
