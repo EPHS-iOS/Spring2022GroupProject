@@ -30,6 +30,7 @@ struct AddPhotoView: View {
                 if aPM.changeProfileImage {
                     Image(uiImage: aPM.imageSelected)
                         .resizable()
+                        .aspectRatio(contentMode: .fit)
                         .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
                         .background(Color.gray)
                 } else {
@@ -47,7 +48,7 @@ struct AddPhotoView: View {
             .toolbar {
                 ToolbarItemGroup {
                     Button {
-                        photoModel.checkAndAddDemo(image: aPM.imageSelected, name: model.username)
+                        photoModel.checkAndAdd(image: aPM.imageSelected, name: model.username)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                             self.photoModel.fetchPhotos()
                             self.photoModel.fetchAllScores()

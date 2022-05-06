@@ -66,34 +66,34 @@ class PhotoModel : ObservableObject {
         }
     }
     
-//    func checkAndAdd(image: UIImage?, name: String) {
-//
-//        let filePath = Bundle.main.path(forResource: "flower", ofType: "jpg")!
-//        let tempURL = URL(fileURLWithPath: filePath)
-//        let filePath2 = Bundle.main.path(forResource: "rainbow", ofType: "jpg")!
-//        let tempURL2 = URL(fileURLWithPath: filePath2)
-//        let filePath3 = Bundle.main.path(forResource: "ship", ofType: "jpg")!
-//        let tempURL3 = URL(fileURLWithPath: filePath3)
-//        contestantImageURLs.append(tempURL)
-//        contestantImageURLs.append(tempURL2)
-//        contestantImageURLs.append(tempURL3)
-//
-//        guard let imageURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("TempImage.png") else {
-//            return
-//        }
-//
-//        let pngData = image!.pngData();
-//        do {
-//            try pngData?.write(to: imageURL);
-//        } catch { }
-//
-//        if processImages(contestantImageURLs: contestantImageURLs, originalImageURL: imageURL) {
-//            addPhoto(image: image)
-//            addPoints(name: name)
-//        } else {
-//            print("fail")
-//        }
-//    }
+    func checkAndAdd(image: UIImage?, name: String) {
+
+        let filePath = Bundle.main.path(forResource: "flower", ofType: "jpg")!
+        let tempURL = URL(fileURLWithPath: filePath)
+        let filePath2 = Bundle.main.path(forResource: "rainbow", ofType: "jpg")!
+        let tempURL2 = URL(fileURLWithPath: filePath2)
+        let filePath3 = Bundle.main.path(forResource: "ship", ofType: "jpg")!
+        let tempURL3 = URL(fileURLWithPath: filePath3)
+        contestantImageURLs.append(tempURL)
+        contestantImageURLs.append(tempURL2)
+        contestantImageURLs.append(tempURL3)
+
+        guard let imageURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("TempImage.png") else {
+            return
+        }
+
+        let pngData = image!.pngData();
+        do {
+            try pngData?.write(to: imageURL);
+        } catch { }
+
+        if processImages(contestantImageURLs: contestantImageURLs, originalImageURL: imageURL) {
+            addPhoto(image: image)
+            addPoints(name: name)
+        } else {
+            print("fail")
+        }
+    }
     
     func processImages(contestantImageURLs: [URL], originalImageURL: URL) -> Bool {
         let originalURL = originalImageURL
