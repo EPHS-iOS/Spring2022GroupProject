@@ -35,6 +35,7 @@ class PhotoModel : ObservableObject {
     
     
     init() {
+        fetchReferences()
         requestPermission()
         fetchPhotos()
         fetchAllScores()
@@ -68,15 +69,15 @@ class PhotoModel : ObservableObject {
     
     func checkAndAdd(image: UIImage?, name: String) {
 
-        let filePath = Bundle.main.path(forResource: "flower", ofType: "jpg")!
-        let tempURL = URL(fileURLWithPath: filePath)
-        let filePath2 = Bundle.main.path(forResource: "rainbow", ofType: "jpg")!
-        let tempURL2 = URL(fileURLWithPath: filePath2)
-        let filePath3 = Bundle.main.path(forResource: "ship", ofType: "jpg")!
-        let tempURL3 = URL(fileURLWithPath: filePath3)
-        contestantImageURLs.append(tempURL)
-        contestantImageURLs.append(tempURL2)
-        contestantImageURLs.append(tempURL3)
+//        let filePath = Bundle.main.path(forResource: "flower", ofType: "jpg")!
+//        let tempURL = URL(fileURLWithPath: filePath)
+//        let filePath2 = Bundle.main.path(forResource: "rainbow", ofType: "jpg")!
+//        let tempURL2 = URL(fileURLWithPath: filePath2)
+//        let filePath3 = Bundle.main.path(forResource: "ship", ofType: "jpg")!
+//        let tempURL3 = URL(fileURLWithPath: filePath3)
+//        contestantImageURLs.append(tempURL)
+//        contestantImageURLs.append(tempURL2)
+//        contestantImageURLs.append(tempURL3)
 
         guard let imageURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("TempImage.png") else {
             return
@@ -163,6 +164,37 @@ class PhotoModel : ObservableObject {
         }
     }
     
+    
+    func fetchReferences() {
+        let predicate = NSPredicate(value: true)
+        let query = CKQuery(recordType: "ReferencePhotos", predicate: predicate)
+        let queryOperation = CKQueryOperation(query: query)
+        
+        var returnedPhotos = [URL]()
+        
+        queryOperation.recordMatchedBlock = { (returnedRecordID, returnedResult) in
+            switch returnedResult {
+            case .success(let record):
+                guard
+                    let imageAsset = record["photo"] as? CKAsset,
+                    let imageURL = imageAsset.fileURL
+                else { return }
+                returnedPhotos.append(imageURL)
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+        queryOperation.queryResultBlock = { [weak self] returnedResult in
+            print("Returned Result: \(returnedResult)")
+            DispatchQueue.main.async {
+                self?.contestantImageURLs = returnedPhotos
+            }
+            
+        }
+        addOperationPub(operation: queryOperation)
+        
+    }
     
     func fetchPhotos() {
         
