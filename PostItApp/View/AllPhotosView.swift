@@ -21,22 +21,21 @@ struct AllPhotosView: View {
                 
                 ScrollView {
                     
-                    GeometryReader{ geo in
-                        Spacer()
+                    
                         LazyVGrid(columns: [
                             GridItem(.flexible()),
                             GridItem(.flexible()),
                             GridItem(.flexible())
-                        ], spacing: 6 ){
+                        ], spacing: 3 ){
                             ForEach(model.photos, id: \.self){ photo in
                                 NavigationLink(destination: IndividualPhotoView(photo: photo), label: {
                                     if let url = photo.image, let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
                                         Image(uiImage: image)
                                             .resizable()
-                                            .frame(width: geo.size.width/3, height: geo.size.width/3)
+                                            .frame(width: UIScreen.main.bounds.width/3, height: UIScreen.main.bounds.width/3)
                                             .background(Image(systemName: "photo")
                                                 .foregroundColor(.white)
-                                                .frame(width: geo.size.width/3, height: geo.size.width/3)
+                                                .frame(width: UIScreen.main.bounds.width/3, height: UIScreen.main.bounds.width/3)
                                                 .background(Color.gray))
                                             .foregroundColor(.white)
                                     }
@@ -44,7 +43,7 @@ struct AllPhotosView: View {
                                 })
                             }
                         }
-                    }
+                    
                     
                 }.navigationTitle("\(model.username)   \(model.currentScore)")
                     .navigationBarTitleDisplayMode(.automatic)
