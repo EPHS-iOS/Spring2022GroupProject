@@ -11,10 +11,10 @@ import SwiftUI
 
 struct AddPhotoView: View {
     
-    @EnvironmentObject var photoModel: PhotoModel
+    @EnvironmentObject var model: PhotoModel
     @Environment(\.presentationMode) var presentationMode
     @StateObject var aPM = AddPhotoModel()
-    @StateObject var model = PhotoModel()
+    
     
     var body: some View {
         
@@ -48,14 +48,14 @@ struct AddPhotoView: View {
             .toolbar {
                 ToolbarItemGroup {
                     Button {
-                        photoModel.checkAndAdd(image: aPM.imageSelected, name: model.username)
+                        model.checkAndAdd(image: aPM.imageSelected, name: model.username)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                            self.photoModel.fetchPhotos()
-                            self.photoModel.fetchAllScores()
-                            self.photoModel.fetchSingleScore()
+                            self.model.fetchPhotos()
+                            self.model.fetchAllScores()
+                            self.model.fetchSingleScore()
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
-                            self.photoModel.fetchPhotos()
+                            self.model.fetchPhotos()
                         }
                         presentationMode.wrappedValue.dismiss()
                     } label: {

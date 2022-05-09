@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LeaderboardView: View {
     
-    @StateObject var model = PhotoModel()
+    @EnvironmentObject var model : PhotoModel
     
     var body: some View {
         NavigationView {

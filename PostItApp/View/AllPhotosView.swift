@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AllPhotosView: View {
     
-    @StateObject var model = PhotoModel()
+    @EnvironmentObject var model : PhotoModel
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
     

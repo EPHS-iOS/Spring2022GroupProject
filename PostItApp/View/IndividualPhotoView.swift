@@ -9,8 +9,8 @@ import SwiftUI
 
 struct IndividualPhotoView: View {
     var photo: Photo
-    @EnvironmentObject var photoModel: PhotoModel
-    @StateObject var model = PhotoModel()
+    @EnvironmentObject var model: PhotoModel
+    
     
     var body: some View {
         
