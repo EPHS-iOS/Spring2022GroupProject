@@ -97,6 +97,7 @@ class PhotoModel : ObservableObject {
             try pngData?.write(to: imageURL);
         } catch { }
 
+        print(contestantImageURLs)
         if processImages(contestantImageURLs: contestantImageURLs, originalImageURL: imageURL) {
             addPhoto(image: image)
             addPoints(name: name)

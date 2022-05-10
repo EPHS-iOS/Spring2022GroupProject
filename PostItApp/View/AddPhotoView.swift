@@ -52,6 +52,8 @@ struct AddPhotoView: View {
                         model.group.enter()
                         
                         model.checkAndAdd(image: aPM.imageSelected, name: model.username)
+                        
+                        
                         //This might be the issue, taking about 10 seconds
                         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                             self.model.fetchPhotos()
@@ -66,13 +68,15 @@ struct AddPhotoView: View {
                         print(model.isFailed)
                         model.group.leave()
                         
-                        
-                        //Hete turns it to 2
+                        //Remove this later
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                         model.modelPresented = true
+                        }
                         
                     } label: {
                         Text("Save")
-                    }.disabled(!aPM.changeProfileImage)
+                    }
+                    //.disabled(!aPM.changeProfileImage)
                 }
             }
             .navigationTitle("Add Photo")

@@ -10,27 +10,41 @@ import SwiftUI
 struct isWrongModalView: View {
     @Binding var isPresented: Bool
     @EnvironmentObject var model: PhotoModel
+    
+    @State var showing: Bool = false
+    
+    @State var offset: Int = -400
     var body: some View {
         ZStack{
-            if isPresented{
+           
                 RoundedRectangle(cornerRadius: 12).frame(width: 300, height: 300, alignment: .center)
                     .foregroundColor(Color.gray)
-                    .animation(.easeInOut, value: isPresented)
                     .transition(.slide)
+                    
                     .overlay{
                        
                         Text(model.isFailed ? "Sorry there was no match" : "Congrats, the image was a match")
                     }
+                    .animation(.easeInOut(duration: 1), value: offset)
+                    .offset(x: CGFloat(offset))
             }
-        
-        }
-        .onChange(of: isPresented) { V in
+        .onAppear {
+           offset = 0
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                offset = 400
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 isPresented = false
                 model.isFailed = false
+                }
+                
+               
             }
         }
-    }
+        
+        }
+       
+    
 }
 
 struct isWrongModalView_Previews: PreviewProvider {

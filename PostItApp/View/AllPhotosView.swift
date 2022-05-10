@@ -14,9 +14,20 @@ struct AllPhotosView: View {
     
     
     var body: some View {
-        
+       
+        ZStack{
+            if model.modelPresented{
+            isWrongModalView(isPresented: $model.modelPresented)
+                .zIndex(1)
+                .transition(.slide)
+            }
         NavigationView {
             
+            
+               
+                
+                    
+                
             VStack(alignment: .leading){
                 
                 ScrollView {
@@ -50,7 +61,7 @@ struct AllPhotosView: View {
                     .font(Font.system(size:46, weight: .bold))
                 
                
-                isWrongModalView(isPresented: $model.modelPresented)
+                
                 
                 
             }.toolbar {
@@ -76,14 +87,17 @@ struct AllPhotosView: View {
                     print("Add function worked")
                 }
             }
+            .zIndex(0)
+            
+        }
             
             
         }.navigationViewStyle(.stack)
             .environmentObject(model)
             .navigationBarHidden(true)
         
-        
     }
+    
 }
 
 
