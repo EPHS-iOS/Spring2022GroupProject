@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5CFF257C282ABC1D002B2390 /* isWrongModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFF257B282ABC1D002B2390 /* isWrongModalView.swift */; };
 		6DE8B6092808714200F053A4 /* PostItAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8B6082808714200F053A4 /* PostItAppApp.swift */; };
 		6DE8B60B2808714200F053A4 /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE8B60A2808714200F053A4 /* AddPhotoView.swift */; };
 		6DE8B60D2808714400F053A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DE8B60C2808714400F053A4 /* Assets.xcassets */; };
@@ -22,12 +23,11 @@
 		E7A230F52809438800CE0656 /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A230F42809438800CE0656 /* LeaderboardView.swift */; };
 		E7A230F72809F5B200CE0656 /* Leaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A230F62809F5B200CE0656 /* Leaderboard.swift */; };
 		E7A230F92813390400CE0656 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A230F82813390300CE0656 /* UserView.swift */; };
-		E7E62C602829A04500023BFD /* flower.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E7E62C5D2829A04400023BFD /* flower.jpg */; };
-		E7E62C612829A04500023BFD /* rainbow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E7E62C5E2829A04400023BFD /* rainbow.jpg */; };
-		E7E62C622829A04500023BFD /* ship.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E7E62C5F2829A04400023BFD /* ship.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5CFF257A282ABAE0002B2390 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5CFF257B282ABC1D002B2390 /* isWrongModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = isWrongModalView.swift; sourceTree = "<group>"; };
 		6DE8B6052808714200F053A4 /* PostItApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostItApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DE8B6082808714200F053A4 /* PostItAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostItAppApp.swift; sourceTree = "<group>"; };
 		6DE8B60A2808714200F053A4 /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
@@ -45,9 +45,6 @@
 		E7A230F42809438800CE0656 /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
 		E7A230F62809F5B200CE0656 /* Leaderboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leaderboard.swift; sourceTree = "<group>"; };
 		E7A230F82813390300CE0656 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
-		E7E62C5D2829A04400023BFD /* flower.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = flower.jpg; path = ../../../../Downloads/flower.jpg; sourceTree = "<group>"; };
-		E7E62C5E2829A04400023BFD /* rainbow.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = rainbow.jpg; path = ../../../../Downloads/rainbow.jpg; sourceTree = "<group>"; };
-		E7E62C5F2829A04400023BFD /* ship.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ship.jpg; path = ../../../../Downloads/ship.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +79,7 @@
 		6DE8B6072808714200F053A4 /* PostItApp */ = {
 			isa = PBXGroup;
 			children = (
+				5CFF257A282ABAE0002B2390 /* Info.plist */,
 				E78FCA8B2808AA75009A9309 /* PostItApp.entitlements */,
 				6DE8B6082808714200F053A4 /* PostItAppApp.swift */,
 				E7A230ED280939BC00CE0656 /* View */,
@@ -89,9 +87,6 @@
 				E7A230EA2809355600CE0656 /* Model */,
 				E78FCA8F2808ADA4009A9309 /* ImagePicker.swift */,
 				6DE8B60C2808714400F053A4 /* Assets.xcassets */,
-				E7E62C5D2829A04400023BFD /* flower.jpg */,
-				E7E62C5E2829A04400023BFD /* rainbow.jpg */,
-				E7E62C5F2829A04400023BFD /* ship.jpg */,
 				6DE8B60E2808714400F053A4 /* Preview Content */,
 			);
 			path = PostItApp;
@@ -139,6 +134,7 @@
 				E7A230F028093ACD00CE0656 /* IndividualPhotoView.swift */,
 				6DE8B60A2808714200F053A4 /* AddPhotoView.swift */,
 				E7A230F42809438800CE0656 /* LeaderboardView.swift */,
+				5CFF257B282ABC1D002B2390 /* isWrongModalView.swift */,
 				E7A230F82813390300CE0656 /* UserView.swift */,
 			);
 			path = View;
@@ -202,11 +198,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E7E62C612829A04500023BFD /* rainbow.jpg in Resources */,
-				E7E62C622829A04500023BFD /* ship.jpg in Resources */,
 				6DE8B6102808714400F053A4 /* Preview Assets.xcassets in Resources */,
 				6DE8B60D2808714400F053A4 /* Assets.xcassets in Resources */,
-				E7E62C602829A04500023BFD /* flower.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,6 +219,7 @@
 				E7A230EF280939D500CE0656 /* AllPhotosView.swift in Sources */,
 				E7A230F92813390400CE0656 /* UserView.swift in Sources */,
 				6DE8B6092808714200F053A4 /* PostItAppApp.swift in Sources */,
+				5CFF257C282ABC1D002B2390 /* isWrongModalView.swift in Sources */,
 				E7A230E92809350D00CE0656 /* AddPhotoModel.swift in Sources */,
 				E7A230F32809433B00CE0656 /* TabsView.swift in Sources */,
 				E7A230E6280934C600CE0656 /* PhotoModel.swift in Sources */,
@@ -361,6 +355,7 @@
 				DEVELOPMENT_TEAM = 883DK65VTV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PostItApp/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Allow Access to Camera";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -394,6 +389,7 @@
 				DEVELOPMENT_TEAM = 883DK65VTV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PostItApp/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Allow Access to Camera";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

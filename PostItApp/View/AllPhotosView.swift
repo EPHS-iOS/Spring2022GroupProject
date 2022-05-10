@@ -49,6 +49,10 @@ struct AllPhotosView: View {
                     .navigationBarTitleDisplayMode(.automatic)
                     .font(Font.system(size:46, weight: .bold))
                 
+               
+                isWrongModalView(isPresented: $model.modelPresented)
+                
+                
             }.toolbar {
                 ToolbarItemGroup {
                     Button  {
@@ -65,6 +69,11 @@ struct AllPhotosView: View {
                         }
                     
                     
+                }
+            }
+            .onAppear {
+                model.group.notify(queue: .main) {
+                    print("Add function worked")
                 }
             }
             
