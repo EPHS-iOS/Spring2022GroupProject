@@ -10,7 +10,11 @@ import SwiftUI
 @main
 struct PostItAppApp: App {
     
-    @StateObject private var photoModel: PhotoModel
+    
+    
+    @StateObject var photoModel = PhotoModel()
+    
+    
     var body: some Scene {
         WindowGroup {
             
