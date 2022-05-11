@@ -141,20 +141,21 @@ class PhotoModel : ObservableObject {
                 
                 var urls: [String] = userDefaults.object(forKey: "found") as? [String] ?? []
                 print("ahhh")
+                print(urls.count)
                 if urls.count != 0 {
                     if(!isPictureFound(testUrl: ranking1url)) {
                         print("ahhh4")
-                        urls.append(ranking1url.absoluteString)
-                        userDefaults.set(urls, forKey: "found")
+                        urls.append(ranking1url.relativeString)
+                        userDefaults.setValue(urls, forKey: "found")
                         return true
                     } else {
-                        userDefaults.set(urls, forKey: "found")
+                        userDefaults.setValue(urls, forKey: "found")
                         print("ahhh2")
                         return false
                     }
                 } else {
-                    let tempUrls = [ranking1url.absoluteString]
-                    userDefaults.set(tempUrls, forKey: "found")
+                    let tempUrls = [ranking1url.relativeString]
+                    userDefaults.setValue(tempUrls, forKey: "found")
                     print("ahhh3")
                     return true
                 }
@@ -167,7 +168,7 @@ class PhotoModel : ObservableObject {
         let userDefaults = UserDefaults.standard
         let urls: [String] = userDefaults.object(forKey: "found") as? [String] ?? []
         for url in urls {
-            if url == testUrl.absoluteString {
+            if URL(string: url)!.pathComponents.last?.split(separator: ".").last == testUrl.pathComponents.last?.split(separator: ".").last {
                 return true
             }
         }
