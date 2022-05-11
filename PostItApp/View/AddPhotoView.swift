@@ -53,6 +53,7 @@ struct AddPhotoView: View {
                             self.model.fetchPhotos()
                             self.model.fetchAllScores()
                             self.model.fetchSingleScore()
+                            print(UserDefaults.standard.synchronize())
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
                             self.model.fetchPhotos()
