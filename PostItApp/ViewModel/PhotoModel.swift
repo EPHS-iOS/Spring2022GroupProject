@@ -33,7 +33,6 @@ class PhotoModel : ObservableObject {
     let privateDB = CKContainer.init(identifier: "iCloud.ephs2022.postit").privateCloudDatabase
     let publicDB = CKContainer.init(identifier: "iCloud.ephs2022.postit").publicCloudDatabase
     
-    
     init() {
         fetchReferences()
         requestPermission()
@@ -121,12 +120,58 @@ class PhotoModel : ObservableObject {
         let ranking1 = ranking[0]
         ranking.removeAll()
         ranking.append(ranking1)
-        
+        let ranking1url = contestantImageURLs[ranking1.contestantIndex]
+        let userDefaults = UserDefaults.standard
             if self.ranking[0].featureprintDistance < 16 {
-                return true
+
+//                var urls: [URL] = userDefaults.object(forKey: "found") as? [URL] ?? []
+//                let urls = [ranking1url]
+//                userDefaults.set(urls, forKey: "found")
+//                return true
+//
+//                if(!isPictureFound(testUrl: ranking1url)) {
+//                    urls.append(ranking1url)
+//                    userDefaults.set(urls, forKey: "found")
+//                    return true
+//                } else {
+//                    return false
+//                }
+//
+//                return true
+                
+                var urls: [String] = userDefaults.object(forKey: "found") as? [String] ?? []
+                print("ahhh")
+                if urls.count != 0 {
+                    if(!isPictureFound(testUrl: ranking1url)) {
+                        print("ahhh4")
+                        urls.append(ranking1url.absoluteString)
+                        userDefaults.set(urls, forKey: "found")
+                        return true
+                    } else {
+                        userDefaults.set(urls, forKey: "found")
+                        print("ahhh2")
+                        return false
+                    }
+                } else {
+                    let tempUrls = [ranking1url.absoluteString]
+                    userDefaults.set(tempUrls, forKey: "found")
+                    print("ahhh3")
+                    return true
+                }
             } else {
                 return false
             }
+    }
+    
+    func isPictureFound(testUrl: URL) -> Bool {
+        let userDefaults = UserDefaults.standard
+        let urls: [String] = userDefaults.object(forKey: "found") as? [String] ?? []
+        for url in urls {
+            if url == testUrl.absoluteString {
+                return true
+            }
+        }
+        return false
     }
     
     func featureprintObservationForImage(atURL url: URL) -> VNFeaturePrintObservation? {
@@ -380,3 +425,4 @@ class PhotoModel : ObservableObject {
     
     
 }
+
