@@ -57,7 +57,7 @@ struct enterName: View{
     var body: some View{
         TextField("Enter Name", text: $text).onSubmit {
             isShowing = false
-            model.username == text
+            model.username = text
         }
     }
 }
