@@ -14,9 +14,20 @@ struct AllPhotosView: View {
     
     
     var body: some View {
-        
+       
+        ZStack{
+            if model.modelPresented{
+            isWrongModalView(isPresented: $model.modelPresented)
+                .zIndex(1)
+                .transition(.slide)
+            }
         NavigationView {
             
+            
+               
+                
+                    
+                
             VStack(alignment: .leading){
                 
                 ScrollView {
@@ -49,6 +60,10 @@ struct AllPhotosView: View {
                     .navigationBarTitleDisplayMode(.automatic)
                     .font(Font.system(size:46, weight: .bold))
                 
+               
+                
+                
+                
             }.toolbar {
                 ToolbarItemGroup {
                     Button  {
@@ -67,14 +82,22 @@ struct AllPhotosView: View {
                     
                 }
             }
+            .onAppear {
+                model.group.notify(queue: .main) {
+                    print("Add function worked")
+                }
+            }
+            .zIndex(0)
+            
+        }
             
             
         }.navigationViewStyle(.stack)
             .environmentObject(model)
             .navigationBarHidden(true)
         
-        
     }
+    
 }
 
 

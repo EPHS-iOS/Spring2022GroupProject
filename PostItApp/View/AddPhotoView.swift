@@ -16,6 +16,7 @@ struct AddPhotoView: View {
     @StateObject var aPM = AddPhotoModel()
     
     
+    
     var body: some View {
         
         NavigationView {
@@ -48,7 +49,12 @@ struct AddPhotoView: View {
             .toolbar {
                 ToolbarItemGroup {
                     Button {
+                        model.group.enter()
+                        
                         model.checkAndAdd(image: aPM.imageSelected, name: model.username)
+                        
+                        
+                        //This might be the issue, taking about 10 seconds
                         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                             self.model.fetchPhotos()
                             self.model.fetchAllScores()
@@ -57,11 +63,21 @@ struct AddPhotoView: View {
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
                             self.model.fetchPhotos()
+                            
                         }
                         presentationMode.wrappedValue.dismiss()
+                        print(model.isFailed)
+                        model.group.leave()
+                        
+                        //Remove this later
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        model.modelPresented = true
+                        }
+                        
                     } label: {
                         Text("Save")
-                    }.disabled(!aPM.changeProfileImage)
+                    }
+                    //.disabled(!aPM.changeProfileImage)
                 }
             }
             .navigationTitle("Add Photo")

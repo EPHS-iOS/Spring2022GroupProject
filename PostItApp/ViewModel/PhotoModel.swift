@@ -20,6 +20,15 @@ class PhotoModel : ObservableObject {
     @Published var username: String = ""
     @Published var currentScore: Int = 0
     @Published var permissionStatus: Bool = false
+    
+    @Published var isFailed: Bool = true
+    
+    
+    //Delete the group later
+    @Published var group = DispatchGroup()
+    @Published var modelPresented: Bool = false
+    
+    
     var personalRecord: CKRecord? = nil
     
 
@@ -87,11 +96,14 @@ class PhotoModel : ObservableObject {
             try pngData?.write(to: imageURL);
         } catch { }
 
+        print(contestantImageURLs)
         if processImages(contestantImageURLs: contestantImageURLs, originalImageURL: imageURL) {
             addPhoto(image: image)
             addPoints(name: name)
         } else {
-            print("fail")
+            isFailed = true
+            print("Trueasdjfasdklfjaskldjf")
+            
         }
     }
     
