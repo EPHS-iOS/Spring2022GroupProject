@@ -9,8 +9,9 @@ import SwiftUI
 
 struct TabsView: View {
     
-    @StateObject var model = PhotoModel()
+    @EnvironmentObject var model: PhotoModel
     
+    @State var isShowingScreen: Bool = false
     var body: some View {
         TabView {
             
@@ -31,6 +32,32 @@ struct TabsView: View {
                     Image(systemName: "person")
                     Text("Users")
                 }
+        }.onAppear {
+            if model.username == ""{
+                isShowingScreen = true
+            }
+        }
+        .sheet(isPresented: $isShowingScreen) {
+            enterName(isShowing: $isShowingScreen)
+        }
+    }
+    
+    
+}
+
+
+struct enterName: View{
+    
+    @State var text: String = ""
+    
+    
+    @Binding var isShowing: Bool
+    @EnvironmentObject var model: PhotoModel
+    
+    var body: some View{
+        TextField("Enter Name", text: $text).onSubmit {
+            isShowing = false
+            model.username == text
         }
     }
 }

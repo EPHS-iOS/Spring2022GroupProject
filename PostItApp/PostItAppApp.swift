@@ -10,10 +10,14 @@ import SwiftUI
 @main
 struct PostItAppApp: App {
     
-    
+    @StateObject private var photoModel: PhotoModel
     var body: some Scene {
         WindowGroup {
+            
             TabsView()
+                .environmentObject(photoModel)
+            
+                
         }
     }
 }

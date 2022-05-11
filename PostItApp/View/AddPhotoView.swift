@@ -60,7 +60,7 @@ struct AddPhotoView: View {
                         presentationMode.wrappedValue.dismiss()
                     } label: {
                         Text("Save")
-                    }.disabled(!aPM.changeProfileImage)
+                    }.disabled(model.username == "")
                 }
             }
             .navigationTitle("Add Photo")
