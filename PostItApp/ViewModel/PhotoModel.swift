@@ -42,13 +42,35 @@ class PhotoModel : ObservableObject {
     let privateDB = CKContainer.init(identifier: "iCloud.ephs2022.postit").privateCloudDatabase
     let publicDB = CKContainer.init(identifier: "iCloud.ephs2022.postit").publicCloudDatabase
     
+    @Published var imageFound: Bool = false
+    
+    
+    
+    
     init() {
+        fetchRecordID()
+        
+        
         fetchReferences()
         requestPermission()
         fetchPhotos()
-        fetchAllScores()
-        fetchSingleScore()
-        fetchRecordID()
+        fetchAllScores{ x -> Void in
+           
+            if x == true{
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.5){
+                self.getReturnScore()
+                }
+            }
+            
+        }
+        
+       //fetchSingleScore()
+        
+        
+        
+        //Mine
+        
+       
     }
     
     
@@ -68,8 +90,14 @@ class PhotoModel : ObservableObject {
             print(returnedRecord)
             print(returnedError)
             DispatchQueue.main.async {
-                self?.fetchSingleScore()
-                self?.fetchAllScores()
+               
+                self?.fetchAllScores{ x -> Void in
+                    if x == true{
+                        self?.getReturnScore()
+                    }
+                    
+                }
+                self?.getReturnScore()
             }
 
         }
@@ -102,6 +130,7 @@ class PhotoModel : ObservableObject {
             addPoints(name: name)
         } else {
             isFailed = true
+            
             print("Trueasdjfasdklfjaskldjf")
             
         }
@@ -159,19 +188,23 @@ class PhotoModel : ObservableObject {
                         print("ahhh4")
                         urls.append(ranking1url.relativeString)
                         userDefaults.setValue(urls, forKey: "found")
+                        imageFound = true
                         return true
                     } else {
                         userDefaults.setValue(urls, forKey: "found")
                         print("ahhh2")
+                        
                         return false
                     }
                 } else {
                     let tempUrls = [ranking1url.relativeString]
                     userDefaults.setValue(tempUrls, forKey: "found")
+                    imageFound = true
                     print("ahhh3")
                     return true
                 }
             } else {
+                
                 return false
             }
     }
@@ -330,15 +363,36 @@ class PhotoModel : ObservableObject {
             print("Returned Result: \(returnedResult)")
             DispatchQueue.main.async {
                 self?.currentScore = returnedScore
+                print("Current Score Var \(self!.currentScore)       Value: \(returnedScore) ")
+               
                 self?.personalRecord = returnedRecord
+               
+               
+                
             }
         }
         addOperationPriv(operation: queryOperation)
     }
     
     
+    //Mine function.
+    func getReturnScore(){
+        
+        print(self.leaderboard.count)
+        print(self.username)
+
+            for x in self.leaderboard{
+                
+                if x.name == self.username{
+                    self.currentScore = x.score
+                }
+            }
+        
+        
+    }
     
-    func fetchAllScores() {
+    func fetchAllScores(hasFinished: @escaping (Bool)->Void) {
+        
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: "Scores", predicate: predicate)
         query.sortDescriptors = [NSSortDescriptor(key: "Score", ascending: false)]
@@ -365,6 +419,9 @@ class PhotoModel : ObservableObject {
             print("Returned Result: \(returnedResult)")
             DispatchQueue.main.async {
                 self?.leaderboard = returnedScores
+                print("FINIHEDASDASD")
+                hasFinished(true)
+                
             }
             
         }
@@ -372,7 +429,7 @@ class PhotoModel : ObservableObject {
     }
     
     func addPoints(name: String) {
-        fetchSingleScore()
+        getReturnScore()
         if currentScore == 0 {
             let newScore = CKRecord(recordType: "Scores")
             newScore["Score"] = 100
@@ -408,17 +465,30 @@ class PhotoModel : ObservableObject {
     }
     
     func requestPermission() {
-        CKContainer.default().requestApplicationPermission([.userDiscoverability]) { returnedStatus, returnedError in
+        //Still at defualt; I want to try and fix something
+            //Save the default version
+        
+        /*
+         CKContainer.default().requestApplicationPermission([.userDiscoverability]) { returnedStatus, returnedError in
+             DispatchQueue.main.async {
+                 if returnedStatus == .granted {
+                     self.permissionStatus = true
+                 }
+             }
+         }
+         */
+        CKContainer(identifier: "iCloud.ephs2022.postit").requestApplicationPermission([.userDiscoverability]) { returnedStatus, returnedError in
             DispatchQueue.main.async {
                 if returnedStatus == .granted {
                     self.permissionStatus = true
                 }
             }
         }
+        
     }
     
     func fetchUserData(id: CKRecord.ID) {
-        CKContainer.default().discoverUserIdentity(withUserRecordID: id) { [weak self] returnedID, returnedError in
+        CKContainer(identifier: "iCloud.ephs2022.postit").discoverUserIdentity(withUserRecordID: id) { [weak self] returnedID, returnedError in
             DispatchQueue.main.async {
                 if let firstName = returnedID?.nameComponents?.givenName, let lastName = returnedID?.nameComponents?.familyName {
                     self?.username = firstName + " " + lastName
@@ -428,7 +498,7 @@ class PhotoModel : ObservableObject {
     }
     
     func fetchRecordID() {
-        CKContainer.default().fetchUserRecordID { [weak self] returnedID, returnedError in
+        CKContainer(identifier: "iCloud.ephs2022.postit").fetchUserRecordID { [weak self] returnedID, returnedError in
             if let id = returnedID {
                 self?.fetchUserData(id: id)
             }
