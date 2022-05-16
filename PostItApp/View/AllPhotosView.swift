@@ -13,6 +13,9 @@ struct AllPhotosView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
     
+    @State var blurRad: Int = 0
+    
+    
     var body: some View {
        
         ZStack{
@@ -21,6 +24,7 @@ struct AllPhotosView: View {
                 .zIndex(1)
                 .transition(.slide)
             }
+            
         NavigationView {
             
             
@@ -91,7 +95,15 @@ struct AllPhotosView: View {
             
         }
             
-            
+        .blur(radius: CGFloat(blurRad))
+        .animation(.easeInOut, value: blurRad)
+        .onChange(of: model.modelPresented) { V in
+            if model.modelPresented == true{
+                blurRad = 3
+            }else{
+                blurRad = 0
+            }
+        }
         }.navigationViewStyle(.stack)
             .environmentObject(model)
             .navigationBarHidden(true)

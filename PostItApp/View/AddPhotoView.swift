@@ -57,8 +57,16 @@ struct AddPhotoView: View {
                         //This might be the issue, taking about 10 seconds
                         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                             self.model.fetchPhotos()
-                            self.model.fetchAllScores()
-                            self.model.fetchSingleScore()
+                            self.model.fetchAllScores{ x -> Void in
+                                if x == true{
+                                    self.model.getReturnScore()
+                                }
+                                
+                            }
+                            
+                            self.model.getReturnScore()
+                            
+                            
                             print(UserDefaults.standard.synchronize())
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {

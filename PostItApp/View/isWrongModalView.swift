@@ -17,28 +17,42 @@ struct isWrongModalView: View {
     var body: some View {
         ZStack{
            
-                RoundedRectangle(cornerRadius: 12).frame(width: 300, height: 300, alignment: .center)
-                    .foregroundColor(Color.gray)
+                RoundedRectangle(cornerRadius: 12).frame(width: 300, height: 400, alignment: .center)
+                .foregroundColor(model.isFailed ? .red : .green)
                     .transition(.slide)
                     
                     .overlay{
-                       
-                        Text(model.isFailed ? "Sorry there was no match" : "Congrats, the image was a match")
+                        VStack {
+                            Image(model.isFailed ? "sadFace" : "happyFace")
+                            Text(  model.imageFound ? "Image Found Already" : model.isFailed ? "Sorry, no match was found." : "Congrats, the image was a match")
+                                .font(.title2)
+                        }
+                        
                     }
                     .animation(.easeInOut(duration: 1), value: offset)
                     .offset(x: CGFloat(offset))
             }
         .onAppear {
            offset = 0
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                offset = 400
+//
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//                isPresented = false
+//                model.isFailed = false
+//                }
+//
+//
+//            }
+        }
+        .onTapGesture {
+            offset = 400
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                offset = 400
-
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                isPresented = false
-                model.isFailed = false
-                }
-                
-               
+            isPresented = false
+            model.isFailed = false
+            
+            model.imageFound = false
+            print("MODEL IS FOUND \(model.imageFound)")
             }
         }
         

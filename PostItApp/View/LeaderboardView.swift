@@ -22,7 +22,12 @@ struct LeaderboardView: View {
                 }
             }.refreshable {
                 DispatchQueue.main.async {
-                    model.fetchAllScores()
+                    model.fetchAllScores{ x -> Void in
+                        if x == true{
+                            model.getReturnScore()
+                        }
+                        
+                    }
                     model.fetchPhotos()
                 }
             }
