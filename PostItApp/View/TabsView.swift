@@ -29,7 +29,7 @@ struct TabsView: View {
             UserView().environmentObject(model)
                 .tabItem() {
                     Image(systemName: "person")
-                    Text("Users")
+                    Text("About Us")
                 }
         }
     }
