@@ -189,6 +189,7 @@ class PhotoModel : ObservableObject {
                         print("ahhh4")
                         urls.append(ranking1url.relativeString)
                         userDefaults.setValue(urls, forKey: "found")
+                        isFailed = false
                         return true
                     } else {
                         userDefaults.setValue(urls, forKey: "found")
@@ -199,6 +200,7 @@ class PhotoModel : ObservableObject {
                 } else {
                     let tempUrls = [ranking1url.relativeString]
                     userDefaults.setValue(tempUrls, forKey: "found")
+                    isFailed = false
                     print("ahhh3")
                     return true
                 }
@@ -445,9 +447,10 @@ class PhotoModel : ObservableObject {
             record["Score"]! += 100
             saveItemPub(record: record)
             
-            let privRecord = personalRecord
-            privRecord!["Score"]! += 100
-            saveItemPriv(record: privRecord!)
+//            let privRecord = personalRecord!
+//            // this crashes the code
+//            privRecord["Score"]! += 100
+//            saveItemPriv(record: privRecord)
         }
     }
     
