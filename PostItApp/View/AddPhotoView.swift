@@ -53,7 +53,6 @@ struct AddPhotoView: View {
                         
                         model.checkAndAdd(image: aPM.imageSelected, name: model.username)
                         
-                        
                         //This might be the issue, taking about 10 seconds
                         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                             self.model.fetchPhotos()

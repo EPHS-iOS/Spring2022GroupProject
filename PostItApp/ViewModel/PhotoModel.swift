@@ -128,9 +128,10 @@ class PhotoModel : ObservableObject {
         if processImages(contestantImageURLs: contestantImageURLs, originalImageURL: imageURL) {
             addPhoto(image: image)
             addPoints(name: name)
+            ranking.removeAll()
         } else {
             isFailed = true
-            
+            ranking.removeAll()
             print("Trueasdjfasdklfjaskldjf")
             
         }
@@ -188,18 +189,16 @@ class PhotoModel : ObservableObject {
                         print("ahhh4")
                         urls.append(ranking1url.relativeString)
                         userDefaults.setValue(urls, forKey: "found")
-                        imageFound = true
                         return true
                     } else {
                         userDefaults.setValue(urls, forKey: "found")
                         print("ahhh2")
-                        
+                        imageFound = true
                         return false
                     }
                 } else {
                     let tempUrls = [ranking1url.relativeString]
                     userDefaults.setValue(tempUrls, forKey: "found")
-                    imageFound = true
                     print("ahhh3")
                     return true
                 }
