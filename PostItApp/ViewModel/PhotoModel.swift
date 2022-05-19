@@ -48,8 +48,12 @@ class PhotoModel : ObservableObject {
     
     
     init() {
-        requestPermission()
-        fetchRecordID()
+        requestPermission(){ x -> Void in
+            if x == true{
+                self.fetchRecordID()
+            }
+            
+        }
         fetchReferences()
         fetchPhotos()
         fetchAllScores{ x -> Void in
@@ -163,8 +167,8 @@ class PhotoModel : ObservableObject {
         let ranking1url = contestantImageURLs[ranking1.contestantIndex]
         let userDefaults = UserDefaults.standard
         
-            if self.ranking[0].featureprintDistance < 18 {
-
+            if self.ranking[0].featureprintDistance < 20 {
+                print(ranking[0].featureprintDistance)
 //                var urls: [URL] = userDefaults.object(forKey: "found") as? [URL] ?? []
 //                let urls = [ranking1url]
 //                userDefaults.set(urls, forKey: "found")
@@ -465,7 +469,7 @@ class PhotoModel : ObservableObject {
         }
     }
     
-    func requestPermission() {
+    func requestPermission(hasFinished: @escaping (Bool)->Void) {
         //Still at defualt; I want to try and fix something
             //Save the default version
         
@@ -483,6 +487,7 @@ class PhotoModel : ObservableObject {
                 if returnedStatus == .granted {
                     self.permissionStatus = true
                     print("THIS FUNCTION HAS RAN _ REQUEST PERMISSION")
+                    hasFinished(true)
                 }
             }
         }
