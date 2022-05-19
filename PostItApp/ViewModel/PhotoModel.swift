@@ -48,11 +48,9 @@ class PhotoModel : ObservableObject {
     
     
     init() {
-        fetchRecordID()
-        
-        
-        fetchReferences()
         requestPermission()
+        fetchRecordID()
+        fetchReferences()
         fetchPhotos()
         fetchAllScores{ x -> Void in
            
