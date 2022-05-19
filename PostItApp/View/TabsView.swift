@@ -10,10 +10,11 @@ import SwiftUI
 struct TabsView: View {
     
     @StateObject var model = PhotoModel()
+    @State var num = 0
     
     var body: some View {
         TabView {
-            
+            if model.username != ""{
             AllPhotosView().environmentObject(model)
                 .tabItem() {
                     Image(systemName: "photo.on.rectangle")
@@ -31,8 +32,10 @@ struct TabsView: View {
                     Image(systemName: "person")
                     Text("About Us")
                 }
+            }
         }
     }
+    
 }
 
 struct TabsView_Previews: PreviewProvider {
