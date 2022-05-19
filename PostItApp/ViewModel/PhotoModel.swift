@@ -167,7 +167,7 @@ class PhotoModel : ObservableObject {
         let ranking1url = contestantImageURLs[ranking1.contestantIndex]
         let userDefaults = UserDefaults.standard
         print(ranking[0].featureprintDistance)
-            if self.ranking[0].featureprintDistance < 20 {
+            if self.ranking[0].featureprintDistance < 19 {
 
 //                var urls: [URL] = userDefaults.object(forKey: "found") as? [URL] ?? []
 //                let urls = [ranking1url]

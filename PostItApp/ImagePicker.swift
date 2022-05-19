@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 import UIKit
 
-
 struct ImagePicker: UIViewControllerRepresentable {
     
     @Binding var selectedImage: UIImage
@@ -22,7 +21,6 @@ struct ImagePicker: UIViewControllerRepresentable {
         imagePicker.allowsEditing = false
         imagePicker.sourceType = sourceType
         imagePicker.delegate = context.coordinator
-        
         return imagePicker
         
     }
