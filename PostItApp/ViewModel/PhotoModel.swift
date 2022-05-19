@@ -78,8 +78,8 @@ class PhotoModel : ObservableObject {
     
     func saveItemPriv(record: CKRecord) {
         privateDB.save(record) { [weak self] returnedRecord, returnedError in
-            print(returnedRecord as Any)
-            print(returnedError)
+//            print(returnedRecord as Any)
+//            print(returnedError)
             DispatchQueue.main.async {
                 self?.fetchPhotos()
             }
@@ -89,8 +89,8 @@ class PhotoModel : ObservableObject {
     
     func saveItemPub(record: CKRecord) {
         publicDB.save(record) { [weak self] returnedRecord, returnedError in
-            print(returnedRecord)
-            print(returnedError)
+//            print(returnedRecord)
+//            print(returnedError)
             DispatchQueue.main.async {
                
                 self?.fetchAllScores{ x -> Void in
@@ -126,7 +126,7 @@ class PhotoModel : ObservableObject {
             try pngData?.write(to: imageURL);
         } catch { }
 
-        print(contestantImageURLs)
+        //print(contestantImageURLs)
         if processImages(contestantImageURLs: contestantImageURLs, originalImageURL: imageURL) {
             addPhoto(image: image)
             addPoints(name: name)
@@ -134,7 +134,7 @@ class PhotoModel : ObservableObject {
         } else {
             isFailed = true
             ranking.removeAll()
-            print("Trueasdjfasdklfjaskldjf")
+            //print("Trueasdjfasdklfjaskldjf")
             
         }
     }
@@ -166,9 +166,9 @@ class PhotoModel : ObservableObject {
         ranking.append(ranking1)
         let ranking1url = contestantImageURLs[ranking1.contestantIndex]
         let userDefaults = UserDefaults.standard
-        
+        print(ranking[0].featureprintDistance)
             if self.ranking[0].featureprintDistance < 20 {
-                print(ranking[0].featureprintDistance)
+
 //                var urls: [URL] = userDefaults.object(forKey: "found") as? [URL] ?? []
 //                let urls = [ranking1url]
 //                userDefaults.set(urls, forKey: "found")
@@ -186,7 +186,7 @@ class PhotoModel : ObservableObject {
                 
                 var urls: [String] = userDefaults.object(forKey: "found") as? [String] ?? []
                 print("ahhh")
-                print(urls.count)
+//                print(urls.count)
                 if urls.count != 0 {
                     if(!isPictureFound(testUrl: ranking1url)) {
                         print("ahhh4")
@@ -231,7 +231,7 @@ class PhotoModel : ObservableObject {
             try requestHandler.perform([request])
             return request.results?.first as? VNFeaturePrintObservation
         } catch {
-            print("Vision error: \(error)")
+//            print("Vision error: \(error)")
             return nil
         }
     }
@@ -255,7 +255,7 @@ class PhotoModel : ObservableObject {
             newPhoto["Photo"] = asset
             saveItemPriv(record: newPhoto)
         } catch let error {
-            print(error)
+//            print(error)
         }
     }
     
@@ -281,7 +281,7 @@ class PhotoModel : ObservableObject {
             }
         }
         queryOperation.queryResultBlock = { [weak self] returnedResult in
-            print("Returned Result: \(returnedResult)")
+//            print("Returned Result: \(returnedResult)")
             DispatchQueue.main.async {
                 self?.contestantImageURLs = returnedPhotos
             }
@@ -315,7 +315,7 @@ class PhotoModel : ObservableObject {
         }
         
         queryOperation.queryResultBlock = { [weak self] returnedResult in
-            print("Returned Result: \(returnedResult)")
+//            print("Returned Result: \(returnedResult)")
             DispatchQueue.main.async {
                 self?.photos = returnedPhotos
             }
@@ -364,10 +364,10 @@ class PhotoModel : ObservableObject {
         }
         
         queryOperation.queryResultBlock = { [weak self] returnedResult in
-            print("Returned Result: \(returnedResult)")
+//            print("Returned Result: \(returnedResult)")
             DispatchQueue.main.async {
                 self?.currentScore = returnedScore
-                print("Current Score Var \(self!.currentScore)       Value: \(returnedScore) ")
+//                print("Current Score Var \(self!.currentScore)       Value: \(returnedScore) ")
                
                 self?.personalRecord = returnedRecord
                
@@ -382,8 +382,8 @@ class PhotoModel : ObservableObject {
     //Mine function.
     func getReturnScore(){
         
-        print(self.leaderboard.count)
-        print(self.username)
+//        print(self.leaderboard.count)
+//        print(self.username)
 
             for x in self.leaderboard{
                 
@@ -423,7 +423,7 @@ class PhotoModel : ObservableObject {
             print("Returned Result: \(returnedResult)")
             DispatchQueue.main.async {
                 self?.leaderboard = returnedScores
-                print("FINIHEDASDASD")
+//                print("FINIHEDASDASD")
                 hasFinished(true)
                 
             }
