@@ -1,7 +1,7 @@
 # Spring2022GroupProject
 ### PostItApp
  
-Each semester, students in AP CSP create post-it note art around the high school. To encourage other students to find the art around the school, students in iOS created this app. With the PostItApp, users can take pictures of the art around the school and the app will reconize the image, giving users point for each image. The leaderboard shows the users with themost points. 
+Each semester, students in AP CSP create post-it note art around the high school. To encourage other students to find the art around the school, students in iOS created this app. With the PostItApp, users can take pictures of the art around the school and the app will reconize the image, giving users point for each image. The leaderboard shows the users with the most points. 
 
 This project was worked on during the spring 2022 semester of iOS app development!
 
